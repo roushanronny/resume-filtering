@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.11/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="flex flex-col gap-y-5 items-center my-10">
+        <div>
+            <div class="text-3xl">Shortlisted Resume based on keywords</div>
+        </div>
+        <div style="width: 40rem;">
+            <table class="w-full text-sm text-left text-gray-400">
+                <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 rounded-s-lg">
+                            Resume File
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Score
+                        </th>
+                        <th scope="col" class="px-6 py-3 rounded-e-lg">
+                            Matched Keywords
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for res in data %}
+                    <tr class="bg-gray-800">
+                        <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                            <a href = "{{res['path']}}">{{res['filename']}}</a>
+                        </th>
+                        <td class="px-6 py-4">
+                            {{res['score']}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% for keyword in res['match_keyword'] %}
+                                {{keyword[0]}},
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="font-semibold text-white">
+                        <th scope="row" class="px-6 py-3 text-base">Total Resume shortlisted</th>
+                        <td class="px-6 py-3">{{data|length}}/{{total_resume}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
